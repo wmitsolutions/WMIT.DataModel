@@ -18,6 +18,10 @@ namespace WMIT.DataModel.Core.Mapping
 
         private const string DEFAULT_FALLBACK_TYPE = "object";
 
+        /// <summary>
+        /// Provides support TypeScript specific features:
+        /// - Nullable types (number?, bool?)
+        /// </summary>
         public bool IsTypeScriptSupported { get; set; }
 
         public JavaScriptTypeMapper()

@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\ITypeMapper.cs" />
-    <Compile Include="Mapping\TypeMapper.cs" />
+    <Compile Include="Mapping\JavaScriptTypeMapper.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

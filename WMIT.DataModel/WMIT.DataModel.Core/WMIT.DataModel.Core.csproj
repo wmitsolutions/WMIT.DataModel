@@ -40,9 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\ITypeMapper.cs" />
-    <Compile Include="Mapping\JavaScriptTypeMapper.cs" />
-    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Mapping\TypeScriptTypeMapper.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Property.cs" />
+    <Compile Include="Model\Schema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

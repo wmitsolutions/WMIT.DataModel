@@ -8,12 +8,12 @@ namespace WMIT.DataModel.Core.Tests
     [TestClass]
     public class TypeMappingTests
     {
-        JavaScriptTypeMapper typeMapper;
+        TypeScriptTypeMapper typeMapper;
 
         [TestInitialize]
         public void Initialize()
         {
-            typeMapper = new JavaScriptTypeMapper();
+            typeMapper = new TypeScriptTypeMapper();
         }
 
         #region Primitive Types
@@ -82,7 +82,7 @@ namespace WMIT.DataModel.Core.Tests
         public void CanGetTypeNamesForNullableTypes()
         {
             string typeName = typeMapper.GetTypeName<int?>();
-            Assert.AreEqual("number", typeName);
+            Assert.AreEqual("number?", typeName);
         }
 
         public class MyEntityTypeA { }
@@ -92,18 +92,6 @@ namespace WMIT.DataModel.Core.Tests
         {
             string typeName = typeMapper.GetTypeName<MyEntityTypeA>();
             Assert.AreEqual("MyEntityTypeA", typeName);
-        }
-        #endregion
-
-        #region TypeScript specific
-        [TestMethod]
-        [TestCategory("TypeScript specific")]
-        public void CanUseNullableTypesForTypeScript()
-        {
-            typeMapper.IsTypeScriptSupported = true;
-
-            string typeName = typeMapper.GetTypeName<int?>();
-            Assert.AreEqual("number?", typeName);
         }
         #endregion
     }

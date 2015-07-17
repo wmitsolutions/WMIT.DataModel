@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WMIT.DataModel.Core.Mapping
 {
-    public class JavaScriptTypeMapper : ITypeMapper
+    public class TypeScriptTypeMapper : ITypeMapper
     {
         public Dictionary<Type, string> Mappings { get; set; }
 
@@ -16,15 +16,9 @@ namespace WMIT.DataModel.Core.Mapping
         private const string DEFAULT_BOOLEAN_TYPE = "bool";
         private const string DEFAULT_DATETIME_TYPE = "Date";
 
-        private const string DEFAULT_FALLBACK_TYPE = "object";
+        private const string DEFAULT_FALLBACK_TYPE = "any";
 
-        /// <summary>
-        /// Provides support TypeScript specific features:
-        /// - Nullable types (number?, bool?)
-        /// </summary>
-        public bool IsTypeScriptSupported { get; set; }
-
-        public JavaScriptTypeMapper()
+        public TypeScriptTypeMapper()
         {
             this.Mappings = new Dictionary<Type, string>()
             {
@@ -39,7 +33,8 @@ namespace WMIT.DataModel.Core.Mapping
 
                  { typeof(bool), DEFAULT_BOOLEAN_TYPE },
 
-                 { typeof(DateTime), DEFAULT_DATETIME_TYPE }
+                 { typeof(DateTime), DEFAULT_DATETIME_TYPE },
+                 { typeof(DateTimeOffset), DEFAULT_DATETIME_TYPE }
             };
         }
 
@@ -48,7 +43,7 @@ namespace WMIT.DataModel.Core.Mapping
             return GetTypeName(typeof(T));
         }
 
-        public string GetTypeName(Type type, string fallback = null)
+        public string GetTypeName(Type type, string fallback = DEFAULT_FALLBACK_TYPE)
         {
             string result = fallback;
 
@@ -70,11 +65,7 @@ namespace WMIT.DataModel.Core.Mapping
                     // Nullable types
                     Type elementType = type.GetGenericArguments().First();
                     result = GetTypeName(elementType, fallback);
-
-                    if (IsTypeScriptSupported)
-                    {
-                        result = string.Format("{0}?", result);
-                    }
+                    result = string.Format("{0}?", result);
                 }
                 else if (type.IsGenericType && type.GetInterface(typeof(IEnumerable).Name) != null)
                 {
